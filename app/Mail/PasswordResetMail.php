@@ -2,9 +2,11 @@
 
 namespace App\Mail;
 
+use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
+use Illuminate\Mail\Mailables\Address;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
@@ -13,12 +15,15 @@ class PasswordResetMail extends Mailable
 {
     use Queueable, SerializesModels;
 
+    protected User $user;
+    protected string $token;
     /**
      * Create a new message instance.
      */
-    public function __construct()
+    public function __construct($user,$token)
     {
-        //
+        $this->token = $token;
+        $this->user = $user;
     }
 
     /**
@@ -27,7 +32,7 @@ class PasswordResetMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            from: new Address('noreplay@example.com', 'Larablog'),
+            from: new Address('no-reply@mailtrap.com', 'Larablog'),
             subject: 'Password Reset Mail',
         );
     }
@@ -39,7 +44,10 @@ class PasswordResetMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'emails.password_reset',
+            markdown: 'emails.password_reset',
+            with: [
+                'token' => $this->token,
+            ],
         );
     }
 

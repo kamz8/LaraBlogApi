@@ -37,4 +37,8 @@ class BlogService
             throw new NotFoundHttpException('Post not found', $e);
         }
     }
+
+    function storePost($request) : void {
+
+    }
 }

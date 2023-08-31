@@ -14,10 +14,11 @@ use http\Env\Request;
 use http\Env\Response;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class AuthController extends Controller
 {
-    protected $authService;
+    protected AuthService $authService;
 
     public function __construct(AuthService $authService)
     {
@@ -81,7 +82,4 @@ class AuthController extends Controller
         ]);
     }
 
-    public function resetPassword() {
-
-    }
 }
