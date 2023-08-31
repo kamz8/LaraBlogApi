@@ -47,10 +47,10 @@ class AuthController extends Controller
             ]);
         }
 
-        return [
+        return response()->json([
             'code'=> 401,
             'message' => 'Invalid credentials.',
-        ];
+        ]);
     }
 
     public function logout(): JsonResponse

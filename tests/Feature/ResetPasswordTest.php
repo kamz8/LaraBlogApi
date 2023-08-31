@@ -8,6 +8,7 @@ use App\Services\ResetPasswordService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Mail;
+use PHPUnit\Framework\MockObject\Exception;
 use Tests\TestCase;
 
 class ResetPasswordTest extends TestCase
@@ -29,6 +30,9 @@ class ResetPasswordTest extends TestCase
         });
     }
 
+    /**
+     * @throws Exception
+     */
     public function test_reset_password()
     {
         $user = User::factory()->create(['email' => 'test@example.com']);

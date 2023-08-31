@@ -2,9 +2,11 @@
 
 namespace Tests\Feature;
 
+use App\Models\Post;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
+use Faker\Factory;
 
 class BlogTest extends TestCase
 {
@@ -20,13 +22,18 @@ class BlogTest extends TestCase
                 'data' => [
                     '*' => [
                         'id',
-                        'category_id',
-                        'user_id',
+                        'category' => [
+                            "id",
+                            "name",
+                        ],
+                        'user'=> [
+                            "id",
+                            "name",
+                        ],
                         'slug',
                         'title',
                         'content',
-                        'scheduled_at',
-                        'thumbnail',
+                        'thumbnail_url',
                         'created_at',
                         'updated_at',
                     ]
@@ -36,20 +43,24 @@ class BlogTest extends TestCase
 
     public function testGetSinglePost()
     {
-        $post = factory(\App\Models\Post::class)->create();
-
-        $response = $this->get('/api/posts/' . $post->id);
+        $response = $this->get('/api/posts/1');
 
         $response->assertStatus(200)
             ->assertJsonStructure([
                 'data' => [
                     'id',
-                    'user',
-                    'category',
+                    'category' => [
+                        "id",
+                        "name",
+                    ],
+                    'user'=> [
+                        "id",
+                        "name",
+                    ],
                     'slug',
                     'title',
                     'content',
-                    'thumbnail',
+                    'thumbnail_url',
                     'created_at',
                     'updated_at',
                 ]
